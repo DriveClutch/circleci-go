@@ -29,4 +29,4 @@ RUN apt-get update \
     && tar -xz -C /tmp -f /tmp/docker.tgz \
     && mv /tmp/docker/* /usr/bin \
     && rm -rf /tmp/docker /tmp/docker.tgz \
-	&& pip install --upgrade --user awscli
+	&& pip install --upgrade awscli
