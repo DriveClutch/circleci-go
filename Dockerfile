@@ -18,6 +18,7 @@ RUN apt-get update \
 	  ca-certificates \
 	  tar \
 	  gzip \
+	  python-pip \
 	&& curl https://glide.sh/get | sh \
     && go get github.com/jstemmer/go-junit-report \
 	&& export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://get.docker.com/builds/  | grep -P -o 'docker-\d+\.\d+\.\d+-ce\.tgz' | head -n 1) \
@@ -27,4 +28,5 @@ RUN apt-get update \
     && ls -lha /tmp/docker.tgz \
     && tar -xz -C /tmp -f /tmp/docker.tgz \
     && mv /tmp/docker/* /usr/bin \
-    && rm -rf /tmp/docker /tmp/docker.tgz
+    && rm -rf /tmp/docker /tmp/docker.tgz \
+	&& pip install --upgrade --user awscli
