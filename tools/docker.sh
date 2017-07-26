@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eo pipefail
 
 ECR_HOSTNAME="458132236648.dkr.ecr.us-east-1.amazonaws.com"
 export AWS_DEFAULT_REGION="us-east-1"
@@ -76,10 +76,18 @@ function docker_build_tag_push() {
 # Login to the ECR repo
 eval $(aws ecr get-login)
 
-DOREMOTE=true
-if [[ -z $CIRCLE_BUILD_NUM ]]; then
-	DOREMOTE=false
+
+# Figure out where we are and if we should be interacting with ECR
+DOREMOTE=false
+if [[ ! -z $CIRCLE_BUILD_NUM && ( $CIRCLE_BRANCH == "master" || $CIRCLE_BRANCH =~ "hotfix"* ) ]]; then
+	DOREMOTE=true
 fi
+
+echo "
+BuildNum: $CIRCLE_BUILD_NUM
+Branch: $CIRCLE_BRANCH
+DOREMOTE: $DOREMOTE
+"
 
 # Look for all the Dockerfiles, exclude the vendor directory for Go projects and node_modules for NodeJS projects
 for dockerfile in $(find . -not -path "./vendor/*" -not -path "./node_modules/*" -name Dockerfile)
