@@ -74,7 +74,7 @@ function docker_build_tag_push() {
 }
 
 # Login to the ECR repo
-eval $(aws ecr get-login)
+eval $(aws ecr get-login --no-include-email)
 
 
 # Figure out where we are and if we should be interacting with ECR
