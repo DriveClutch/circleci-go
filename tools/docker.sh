@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 ECR_HOSTNAME="458132236648.dkr.ecr.us-east-1.amazonaws.com"
 export AWS_DEFAULT_REGION="us-east-1"
