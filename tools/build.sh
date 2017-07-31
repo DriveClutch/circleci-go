@@ -4,6 +4,9 @@ for dockerfile in $(find . -name Dockerfile -not -path "./vendor/*" )
 do
 	pkgdir=$(dirname $dockerfile)
 	execname="$pkgdir/$(basename $pkgdir)"
+	if [[ $pkgdir == "." ]]; then
+		execname=$(basename $(pwd))
+	fi
 	CGO_ENABLED=0 go build \
 		-a \
 		-installsuffix cgo \
