@@ -73,9 +73,6 @@ function docker_build_tag_push() {
   fi
 }
 
-# Login to the ECR repo
-eval $(aws ecr get-login --no-include-email)
-
 
 # Figure out where we are and if we should be interacting with ECR
 DOREMOTE=false
@@ -88,6 +85,11 @@ BuildNum: $CIRCLE_BUILD_NUM
 Branch: $CIRCLE_BRANCH
 DOREMOTE: $DOREMOTE
 "
+
+if $DORREMOTE; then
+    # Login to the ECR repo
+    eval $(aws ecr get-login --no-include-email)
+fi
 
 # Look for all the Dockerfiles, exclude the vendor directory for Go projects and node_modules for NodeJS projects
 for dockerfile in $(find . -not -path "./vendor/*" -not -path "./node_modules/*" -name Dockerfile)
