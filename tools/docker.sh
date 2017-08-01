@@ -1,4 +1,8 @@
-#!/bin/bash -ex
+#!/bin/bash -e
+
+if [[ -f ".circleci/debuglog" ]]; then
+	set -x
+fi
 
 ECR_HOSTNAME="458132236648.dkr.ecr.us-east-1.amazonaws.com"
 export AWS_DEFAULT_REGION="us-east-1"
