@@ -99,6 +99,10 @@ do
 	# Set the relative path to the Dockerfile for building
 	dockerdir=$(dirname $dockerfile)
 
+	if [[ -f "$dockerdir/.noautobuild" ]]; then
+		continue
+	fi
+
 	if [[ $appname == "." ]]; then
 		# Dockerfile is at the repo root, update the appname to the name of the repo
 		appname=$(basename $PWD)

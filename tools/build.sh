@@ -7,10 +7,14 @@ do
 	if [[ $pkgdir == "." ]]; then
 		execname=$(basename $(pwd))
 	fi
-	CGO_ENABLED=0 go build \
-		-a \
-		-installsuffix cgo \
-		-ldflags "-s -X main.buildinfobuildtime=$(date '+%Y-%m-%d_%I:%M:%S%p') -X main.buildinfogithash=${CIRCLE_SHA1} -X main.buildinfoversion=${CIRCLE_TAG-latest}" \
-		-o $execname \
-		$pkgdir
+
+	# Make sure there is some Go files to build in this dir
+	if compgen -G "$pkgdir/*.go" > /dev/null; then
+		CGO_ENABLED=0 go build \
+			-a \
+			-installsuffix cgo \
+			-ldflags "-s -X main.buildinfobuildtime=$(date '+%Y-%m-%d_%I:%M:%S%p') -X main.buildinfogithash=${CIRCLE_SHA1} -X main.buildinfoversion=${CIRCLE_TAG-latest}" \
+			-o $execname \
+			$pkgdir
+	fi
 done
