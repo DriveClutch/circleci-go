@@ -16,8 +16,8 @@ RUN apt-get update \
     && ls -lha /tmp/docker.tgz \
     && tar -xz -C /tmp -f /tmp/docker.tgz \
     && mv /tmp/docker/* /usr/bin \
-	&& curl -LO https://s3.amazonaws.com/chartmuseum/release/latest/bin/linux/amd64/chartmuseum \
-	&& chmod +x ./chartmuseum \
+    && curl -LO https://s3.amazonaws.com/chartmuseum/release/latest/bin/linux/amd64/chartmuseum \
+    && chmod +x ./chartmuseum \
     && mv ./chartmuseum /usr/bin/ \
     && rm -rf /tmp/docker /tmp/docker.tgz \
     && pip install --upgrade awscli
