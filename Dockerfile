@@ -19,7 +19,10 @@ RUN apt-get update \
     && curl -LO https://s3.amazonaws.com/chartmuseum/release/latest/bin/linux/amd64/chartmuseum \
     && chmod +x ./chartmuseum \
     && mv ./chartmuseum /usr/bin/ \
-    && rm -rf /tmp/docker /tmp/docker.tgz \
+    && curl -LO https://kubernetes-helm.storage.googleapis.com/helm-v2.6.2-linux-amd64.tar.gz \
+    && tar -czvf helm-v2.6.2-linux-amd64.tar.gz \
+    && mv linux-amd64/helm /usr/bin/helm \
+    && rm -rf /tmp/docker /tmp/docker.tgz linux-amd64 \
     && pip install --upgrade awscli
 
 COPY tools/* /tools/
