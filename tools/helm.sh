@@ -9,8 +9,6 @@ if [[ ! -d ".helm" ]]; then
 	exit 0
 fi
 
-helm init --client-only
-helm plugin install https://github.com/hypnoglow/helm-s3.git
 helm repo add mproduction $S3_HELM_BUCKET
 
 cd .helm
