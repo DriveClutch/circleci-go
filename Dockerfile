@@ -22,6 +22,8 @@ RUN apt-get update \
     && curl -LO https://kubernetes-helm.storage.googleapis.com/helm-v2.6.2-linux-amd64.tar.gz \
     && tar -xzvf helm-v2.6.2-linux-amd64.tar.gz \
     && mv linux-amd64/helm /usr/bin/helm \
+	&& helm init --client-only \
+	&& helm plugin install https://github.com/hypnoglow/helm-s3.git \
     && rm -rf /tmp/docker /tmp/docker.tgz linux-amd64 \
     && pip install --upgrade awscli
 
