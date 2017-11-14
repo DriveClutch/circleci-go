@@ -15,8 +15,8 @@ cd .helm
 
 GITHASHLONG=$(git rev-parse HEAD)
 GITHASHSHORT=$(git rev-parse --short HEAD)
-DT=$(date "+%Y.%m%d.%H%M")
-PKGVER="${DT}-${GITHASHSHORT}"
+DT=$(date "+%Y%m%d.%H%M.%ss")
+PKGVER="${DT}"
 
 for chartpath in */Chart.yaml
 do
