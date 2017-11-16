@@ -11,8 +11,6 @@ fi
 
 echo $GCP_AUTH_KEY | base64 -d - > ${HOME}/gcp-key.json
 export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcp-key.json
-#gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
-#gcloud auth application-default login
 
 helm repo add $HELM_REPO_NAME $HELM_GS_BUCKET
 
