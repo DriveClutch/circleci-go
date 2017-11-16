@@ -9,7 +9,10 @@ if [[ ! -d ".helm" ]]; then
 	exit 0
 fi
 
-helm repo add mproduction $S3_HELM_BUCKET
+echo $GCP_AUTH_KEY | base64 -d - > ${HOME}/gcp-key.json
+gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+
+helm repo add $HELM_REPO_NAME $HELM_GS_BUCKET
 
 cd .helm
 
@@ -27,5 +30,5 @@ do
 	mv ${chartpath}.new ${chartpath}
 
 	helm package $reponame
-	helm s3 push ./telematics-calamp-trip-${PKGVER}.tgz mproduction
+	helm gcs push ./${reponame}-${PKGVER}.tgz $HELM_REPO_NAME
 done
