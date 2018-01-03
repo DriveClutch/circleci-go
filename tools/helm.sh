@@ -37,6 +37,13 @@ GITHASHSHORT=$(git rev-parse --short HEAD)
 DT=$(date "+%Y%m%d.%H%M.%S")
 PKGVER="${DT}"
 
+# Run linter first on all packages
+for chartpath in */Chart.yaml
+do
+	pkgname=$(basename $(dirname $chartpath))
+	helm lint $pkgname
+done
+
 for chartpath in */Chart.yaml
 do
 	pkgname=$(basename $(dirname $chartpath))
