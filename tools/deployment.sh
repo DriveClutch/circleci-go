@@ -11,7 +11,7 @@ if [[ -x "tools/deployment.sh" ]]; then
 fi
 
 # Container Images
-/tools/docker.sh
+/tools/docker.sh $@
 
 # Helm Packages
 /tools/helm.sh
