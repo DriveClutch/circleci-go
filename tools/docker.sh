@@ -81,7 +81,7 @@ function docker_build_tag_push() {
 
 # Figure out where we are and if we should be interacting with ECR
 DOREMOTE=false
-if [[ ! -z $CIRCLE_BUILD_NUM && ( $CIRCLE_BRANCH == "master" || $CIRCLE_BRANCH =~ "hotfix"* ) ]]; then
+if [[ ! -z $CIRCLE_BUILD_NUM && ( $CIRCLE_BRANCH == "develop" || $CIRCLE_BRANCH == "master" || $CIRCLE_BRANCH =~ "hotfix"* || $CIRCLE_BRANCH =~ "release"* ) ]]; then
 	DOREMOTE=true
 fi
 
