@@ -13,7 +13,7 @@ echo $GCP_AUTH_KEY | base64 -d - > ${HOME}/gcp-key.json
 export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcp-key.json
 
 REPONAME="${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BRANCH}"
-REPOLOCATION="${HELM_GS_BUCKET}${REPONAME}"
+REPOLOCATION="${HELM_GS_BUCKET}/${REPONAME}"
 
 echo "Check if the repo is initialized"
 set +e # Turn off failure dumping
