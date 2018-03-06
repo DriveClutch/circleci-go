@@ -47,11 +47,7 @@ done
 for chartpath in */Chart.yaml
 do
 	pkgname=$(basename $(dirname $chartpath))
-	grep -Ev "^version:|^appVersion:" ${chartpath} > ${chartpath}.new
-	echo "appVersion: ${GITHASHLONG}" >> ${chartpath}.new
-	echo "version: ${PKGVER}" >> ${chartpath}.new
-	mv ${chartpath}.new ${chartpath}
 
-	helm package $pkgname
+	helm package --version=$PKGVER --app-version=$GITHASHLONG $pkgname
 	helm gcs push ./${pkgname}-${PKGVER}.tgz $REPONAME
 done
