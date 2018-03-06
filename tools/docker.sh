@@ -1,7 +1,29 @@
 #!/bin/bash -e
 
+MY_EXCLUDES=""
+BASE_DIR=""
+
+while getopts "d:x:" OPT; do
+	case $OPT in
+		d)
+			BASE_DIR="$OPTARG"
+			;;
+		x)
+			MY_EXCLUDES="${MY_EXCLUDES} $OPTARG"
+			;;
+	esac
+done
+shift $(($OPTIND -1))
+# Trim leading space from excludes
+MY_EXCLUDES="${MY_EXCLUDES## }"
+
 if [[ -f ".circleci/debuglog" ]]; then
 	set -x
+fi
+
+if [[ -x "tools/docker.sh" ]]; then
+	tools/docker.sh
+	exit $?
 fi
 
 ECR_HOSTNAME="458132236648.dkr.ecr.us-east-1.amazonaws.com"
@@ -81,8 +103,10 @@ function docker_build_tag_push() {
 
 # Figure out where we are and if we should be interacting with ECR
 DOREMOTE=false
-if [[ ! -z $CIRCLE_BUILD_NUM && ( $CIRCLE_BRANCH == "master" || $CIRCLE_BRANCH =~ "hotfix"* ) ]]; then
+if [[ ! -z $CIRCLE_BUILD_NUM && ( $CIRCLE_BRANCH == "develop" || $CIRCLE_BRANCH == "master" || $CIRCLE_BRANCH =~ "hotfix"* || $CIRCLE_BRANCH =~ "release"* ) ]]; then
 	DOREMOTE=true
+else
+    echo "*NOT* interacting with ECR, either because branchname is not appropriate or not actually in a circleci environment"
 fi
 
 echo "
@@ -96,9 +120,22 @@ if $DORREMOTE; then
     eval $(aws ecr get-login --no-include-email)
 fi
 
+if [[ -z "$BASE_DIR" ]]; then
+	MY_BASE_DIR=.
+else
+	MY_BASE_DIR="${BASE_DIR%/}"
+fi
+
+list_dockerfiles() {
+	MY_DS=$(find $MY_BASE_DIR -not -path "$MY_BASE_DIR/vendor/*" -not -path "$MY_BASE_DIR/node_modules/*" -name Dockerfile)
+	for excl in $MY_EXCLUDES; do
+		MY_DS=$(echo $MY_DS | tr " " "\n" | grep -v $excl)
+	done
+	echo $MY_DS
+}
+
 # Look for all the Dockerfiles, exclude the vendor directory for Go projects and node_modules for NodeJS projects
-for dockerfile in $(find . -not -path "./vendor/*" -not -path "./node_modules/*" -name Dockerfile)
-do
+for dockerfile in $(list_dockerfiles); do
 	# Use the parent directory of the Dockerfile as the appname
 	appname=$(basename $(dirname $dockerfile))
 	# Set the relative path to the Dockerfile for building
