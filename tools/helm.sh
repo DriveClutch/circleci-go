@@ -26,20 +26,23 @@ export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcp-key.json
 REPONAME="${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BRANCH}"
 REPOLOCATION="${HELM_GS_BUCKET}/${REPONAME}"
 
-echo "Check if the repo is initialized"
-set +e # Turn off failure dumping
+# Create the repo (if needed)
+if $DOREMOTE; then
+    echo "Check if the repo is initialized"
+    set +e # Turn off failure dumping
 
-helm repo add $REPONAME $REPOLOCATION
-RET=$?
-if [ "$RET" != "0" ]; then
-	echo "$REPONAME was not initialized at $REPOLOCATION, performing bucket initialization"
-	helm gcs init $REPOLOCATION
+    helm repo add $REPONAME $REPOLOCATION
+    RET=$?
+    if [ "$RET" != "0" ]; then
+    	echo "$REPONAME was not initialized at $REPOLOCATION, performing bucket initialization"
+    	helm gcs init $REPOLOCATION
+    fi
+
+    set -e # Turn on failure dumping
+
+    echo "Adding $REPONAME repo to helm"
+    helm repo add $REPONAME $REPOLOCATION
 fi
-
-set -e # Turn on failure dumping
-
-echo "Adding $REPONAME repo to helm"
-helm repo add $REPONAME $REPOLOCATION
 
 cd .helm
 
