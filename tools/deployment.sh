@@ -15,3 +15,5 @@ fi
 
 # Helm Packages
 /tools/helm.sh
+
+/tools/helm-install.sh
