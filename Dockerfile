@@ -17,8 +17,8 @@ RUN apt-get update \
     && ls -lha /tmp/docker.tgz \
     && tar -xz -C /tmp -f /tmp/docker.tgz \
     && mv /tmp/docker/* /usr/bin \
-    && curl -LO https://kubernetes-helm.storage.googleapis.com/helm-v2.8.1-linux-amd64.tar.gz \
-    && tar -xzvf helm-v2.8.1-linux-amd64.tar.gz \
+    && curl -LO https://kubernetes-helm.storage.googleapis.com/helm-v2.9.0-linux-amd64.tar.gz \
+    && tar -xzvf helm-v2.9.0-linux-amd64.tar.gz \
     && mv linux-amd64/helm /usr/bin/helm \
 	&& helm init --client-only \
 	&& helm plugin install https://github.com/nouney/helm-gcs \
