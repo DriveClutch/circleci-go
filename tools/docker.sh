@@ -104,7 +104,7 @@ function docker_build_tag_push() {
 
 # Figure out where we are and if we should be interacting with ECR
 DOREMOTE=false
-if [[ ! -z $CIRCLE_BUILD_NUM && ( $CIRCLE_BRANCH == "develop" || $CIRCLE_BRANCH == "master" || $CIRCLE_BRANCH =~ "hotfix"* || $CIRCLE_BRANCH =~ "release"* ) ]]; then
+if [[ ! -z $CIRCLE_BUILD_NUM && ( $CIRCLE_BRANCH == "develop" || $CIRCLE_BRANCH == "master" || $CIRCLE_BRANCH == hotfix* || $CIRCLE_BRANCH == release* ) ]]; then
 	DOREMOTE=true
 else
     echo "*NOT* interacting with ECR, either because branchname is not appropriate or not actually in a circleci environment"
