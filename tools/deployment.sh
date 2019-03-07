@@ -14,6 +14,6 @@ fi
 /tools/docker.sh $@
 
 # Helm Packages
-/tools/helm.sh
+# /tools/helm.sh
 
-/tools/helm-install.sh
+# /tools/helm-install.sh
