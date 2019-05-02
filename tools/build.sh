@@ -13,7 +13,7 @@ if [[ -f "glide.lock" ]]; then
 
     if [[ ! -d "vendor" ]]; then
         echo "VENDOR DOT SH"
-        tools/vendor.sh
+        glide install --stripe-vendor
     fi
 
 fi
