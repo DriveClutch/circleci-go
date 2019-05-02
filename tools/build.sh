@@ -4,6 +4,11 @@ if [[ -f ".circleci/debuglog" ]]; then
 	set -x
 fi
 
+if [[ -x "tools/build.sh" ]]; then
+	tools/build.sh
+	exit $?
+fi
+
 if [[ -f "glide.lock" ]]; then
 
     if [[ ! -d "vendor" ]]; then
