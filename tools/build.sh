@@ -4,10 +4,18 @@ if [[ -f ".circleci/debuglog" ]]; then
 	set -x
 fi
 
-# Check if there is a build.sh in the repo and exec
 if [[ -x "tools/build.sh" ]]; then
 	tools/build.sh
 	exit $?
+fi
+
+if [[ -f "glide.lock" ]]; then
+
+    if [[ ! -d "vendor" ]]; then
+        echo "VENDOR DOT SH"
+        glide install --strip-vendor
+    fi
+
 fi
 
 for dockerfile in $(find . -name Dockerfile -not -path "./vendor/*" )
@@ -28,3 +36,4 @@ do
 			$pkgdir
 	fi
 done
+
