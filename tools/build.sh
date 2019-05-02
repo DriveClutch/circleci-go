@@ -13,7 +13,7 @@ if [[ -f "glide.lock" ]]; then
 
     if [[ ! -d "vendor" ]]; then
         echo "VENDOR DOT SH"
-        glide install --stripe-vendor
+        glide install --strip-vendor
     fi
 
 fi
