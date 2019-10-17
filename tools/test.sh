@@ -10,5 +10,4 @@ if [[ -x "tools/test.sh" ]]; then
 	exit $?
 fi
 
-# NOTE the $(glide novendor) is to exclude vendor packages testing
-go test $(glide novendor)
+go test

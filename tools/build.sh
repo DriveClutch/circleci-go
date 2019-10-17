@@ -9,15 +9,6 @@ if [[ -x "tools/build.sh" ]]; then
 	exit $?
 fi
 
-if [[ -f "glide.lock" ]]; then
-
-    if [[ ! -d "vendor" ]]; then
-        echo "VENDOR DOT SH"
-        glide install --strip-vendor
-    fi
-
-fi
-
 for dockerfile in $(find . -name Dockerfile -not -path "./vendor/*" )
 do
 	pkgdir=$(dirname $dockerfile)
@@ -27,6 +18,7 @@ do
 	fi
 
 	# Make sure there is some Go files to build in this dir
+	# Go build will download dependencies if there is a go.mod file in the repo being built.
 	if compgen -G "$pkgdir/*.go" > /dev/null; then
 		CGO_ENABLED=0 go build \
 			-a \
@@ -36,4 +28,3 @@ do
 			$pkgdir
 	fi
 done
-
