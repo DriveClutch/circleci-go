@@ -9,7 +9,7 @@ To migrate to Go modules:
 
 - remove the glide.yaml / glide.lock files
 
-- reference driveclutch/circleci-go:latest in your project's .circleci/config.yml file.
+- in your project's .circleci/config.yml file reference driveclutch/circleci-go:latest as the builder image and update the working directory to simply be `/project-name` (instead of being relative to the go path eg, `go/src/github.com/DriveClutch/project-name`)
 
 - go build should download the dependencies and generate a go.sum file (also commit this)
 
