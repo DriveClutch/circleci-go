@@ -14,3 +14,19 @@ To migrate to Go modules:
 - go build should download the dependencies and generate a go.sum file (also commit this)
 
 - see more: https://blog.golang.org/migrating-to-go-modules
+
+- to enable caching, add a step like this before the build step
+
+   ```
+   - restore_cache:
+       keys:
+         - some-prefix-{{ .Branch }}-{{ checksum "go.sum" }}
+   ```
+  and add a step like this after the build and test steps
+
+   ```
+   - save_cache:
+       key: some-prefix-{{ .Branch }}-{{ checksum "go.sum" }}
+         paths:
+           - /go/pkg/mod/cache
+   ```
