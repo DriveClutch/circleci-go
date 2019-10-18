@@ -27,6 +27,6 @@ To migrate to Go modules:
    ```
    - save_cache:
        key: some-prefix-{{ .Branch }}-{{ checksum "go.sum" }}
-         paths:
-           - /go/pkg/mod/cache
+       paths:
+         - /go/pkg/mod/cache
    ```
