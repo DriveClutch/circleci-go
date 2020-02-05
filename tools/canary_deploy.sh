@@ -43,6 +43,6 @@ then
     WEBHOOK_URL="https://api.dev1.clutchtech.io/canary-service/webhook"
     curl --location --request POST $WEBHOOK_URL \
       --header 'Content-Type: application/json' \
-      --header "X-Github-Webhook-API-Key: vqRlTpDiYUGilMrkk33lUP2UEr3Kizpjlgau7BH16FxJyC27ffdSeMDjCfClSu8U9c8RxMTnIxwpinn6EA0H" \
+      --header "X-Github-Webhook-API-Key: $API_KEY" \
       --data "$(generate_post_data)"
 fi
