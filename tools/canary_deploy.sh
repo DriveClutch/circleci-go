@@ -34,8 +34,8 @@ then
     curl --location --request POST $WEBHOOK_URL \
       --header 'Content-Type: application/json' \
       --header "X-Github-Webhook-API-Key: $API_KEY" \
-      --data-raw '{
+      --data-raw `{
 	      "imageId": "$IMAGE_ID",
 	      "target": "$REPO_NAME"
-      }'
+      }`
 fi
