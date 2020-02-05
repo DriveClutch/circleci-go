@@ -30,7 +30,6 @@ API_KEY=$4
 
 if [[ $REPO_BRANCH == "develop" ]]
 then
-    echo "sending webhook..."
     WEBHOOK_URL="https://api.dev1.clutchtech.io/canary-service/webhook"
     curl --location --request POST $WEBHOOK_URL \
       --header 'Content-Type: application/json' \
