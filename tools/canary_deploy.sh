@@ -41,7 +41,7 @@ EOF
 if [[ $REPO_BRANCH == "develop" ]]
 then
     WEBHOOK_URL="https://api.dev1.clutchtech.io/canary-service/webhook"
-    curl --location --request POST $WEBHOOK_URL \
+    curl -v --location --request POST $WEBHOOK_URL \
       --header 'Content-Type: application/json' \
       --header "X-Github-Webhook-API-Key: $API_KEY" \
       --data "$(generate_post_data)"
