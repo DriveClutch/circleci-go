@@ -26,6 +26,7 @@ RUN apt-get update \
 	&& echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
 	&& curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
 	&& apt-get update \
-	&& apt-get install -y google-cloud-sdk kubectl
+	&& apt-get install -y google-cloud-sdk kubectl \
+    && go get honnef.co/go/tools/cmd/staticcheck
 
 COPY tools/* /tools/
