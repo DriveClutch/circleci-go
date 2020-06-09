@@ -4,7 +4,6 @@ if [[ -f ".circleci/debuglog" ]]; then
 	set -x
 fi
 
-# Check if there is a build.sh in the repo and exec
 if [[ -x "tools/build.sh" ]]; then
 	tools/build.sh
 	exit $?
@@ -19,6 +18,7 @@ do
 	fi
 
 	# Make sure there is some Go files to build in this dir
+	# Go build will download dependencies if there is a go.mod file in the repo being built.
 	if compgen -G "$pkgdir/*.go" > /dev/null; then
 		CGO_ENABLED=0 go build \
 			-a \
