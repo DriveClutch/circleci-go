@@ -28,5 +28,6 @@ RUN apt-get update \
 	&& curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
 	&& apt-get update \
 	&& apt-get install -y google-cloud-sdk kubectl
+	&& apt-get install -y shellcheck
 
 COPY tools/* /tools/
