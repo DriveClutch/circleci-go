@@ -28,6 +28,7 @@ RUN apt-get update \
 	&& apt-get update \
 	&& apt-get install -y google-cloud-sdk kubectl \
     && go get honnef.co/go/tools/cmd/staticcheck \
-    && apt-get install -y shellcheck
+    && apt-get install -y shellcheck \
+    && apt-get install bats
 
 COPY tools/* /tools/
