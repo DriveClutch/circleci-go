@@ -12,4 +12,3 @@ workflows:
           path: ./
           repo: CIRCLE_BRANCH/CIRCLE_PROJECT_REPONAME
           tag: "latest, $CIRCLE_SHA1, $CIRCLE_BUILD_URL"
-          repo-scan-on-push: true
