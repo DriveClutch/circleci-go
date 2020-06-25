@@ -1,0 +1,15 @@
+orbs:
+  aws-ecr: circleci/aws-ecr@6.9.1
+version: 2.1
+workflows:
+  build_and_push_image:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          context: org-global
+          create-repo: true
+          dockerfile: Dockerfile
+          no-output-timeout: 20m
+          path: ./
+          repo: CIRCLE_BRANCH/CIRCLE_PROJECT_REPONAME
+          tag: "latest, $CIRCLE_SHA1, $CIRCLE_BUILD_URL"
+          repo-scan-on-push: true
