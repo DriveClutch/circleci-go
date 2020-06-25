@@ -10,5 +10,5 @@ workflows:
           dockerfile: Dockerfile
           no-output-timeout: 20m
           path: ./
-          repo: CIRCLE_BRANCH/CIRCLE_PROJECT_REPONAME
+          repo: $CIRCLE_BRANCH/$CIRCLE_PROJECT_REPONAME
           tag: "latest, $CIRCLE_SHA1, $CIRCLE_BUILD_URL"
