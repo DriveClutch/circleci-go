@@ -11,4 +11,4 @@ workflows:
           no-output-timeout: 20m
           path: ./
           repo: $CIRCLE_BRANCH/$CIRCLE_PROJECT_REPONAME
-          tag: "latest, $CIRCLE_SHA1"
+          tag: latest, $CIRCLE_SHA1
