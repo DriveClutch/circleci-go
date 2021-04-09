@@ -10,4 +10,8 @@ if [[ -x "tools/test.sh" ]]; then
 	exit $?
 fi
 
-go test
+mkdir -p _tmp/artifacts
+
+go test -v -covermode=count -coverprofile=_tmp/artifacts/coverage.out
+
+go tool cover -html=_tmp/artifacts/coverage.out -o _tmp/artifacts/coverage.html

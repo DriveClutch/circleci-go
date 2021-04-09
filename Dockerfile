@@ -1,11 +1,11 @@
-FROM golang:1.15.3
+FROM golang:1.16.3
 
 RUN apt-get update \
     && apt-get install -y \
 	  openssh-client \
 	  ca-certificates \
 	  tar \
-	  gzip \
+	  gzip zip \
 	  python-pip \
 	  lsb-release \
     && go get github.com/jstemmer/go-junit-report \
@@ -16,19 +16,12 @@ RUN apt-get update \
     && ls -lha /tmp/docker.tgz \
     && tar -xz -C /tmp -f /tmp/docker.tgz \
     && mv /tmp/docker/* /usr/bin \
-    && curl -LO https://kubernetes-helm.storage.googleapis.com/helm-v2.9.0-linux-amd64.tar.gz \
-    && tar -xzvf helm-v2.9.0-linux-amd64.tar.gz \
-    && mv linux-amd64/helm /usr/bin/helm \
-	&& helm init --client-only \
-	&& helm plugin install https://github.com/nouney/helm-gcs \
     && rm -rf /tmp/docker /tmp/docker.tgz linux-amd64 \
     && pip install --upgrade awscli \
-	&& echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
-	&& curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
 	&& apt-get update \
 	&& apt-get install -y google-cloud-sdk kubectl \
-    && go get honnef.co/go/tools/cmd/staticcheck \
     && apt-get install -y shellcheck \
-    && apt-get install bats
+    && apt-get install bats \
+    && go get honnef.co/go/tools/cmd/staticcheck
 
 COPY tools/* /tools/

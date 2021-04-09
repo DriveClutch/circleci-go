@@ -165,4 +165,15 @@ for dockerfile in $(list_dockerfiles); do
 	setup_ecr_repo $DOREMOTE ${appname} ${ecrreponame}
 	# Build the Docker and push it to ECR
 	docker_build_tag_push $DOREMOTE ${appname} ${dockerdir} ${urlbase}:${buildhash} ${urlbase}:latest
+
+  # Prepare for VeraCode Upload
+
+  cd $dockerdir
+  go mod vendor
+  cp -r ../../vendor .
+  cp ../../go.mod .
+  cp ../../go.sum .
+  zip -r ${appname}.zip *.go vendor/ go.mod go.sum
+  mkdir -p /tmp/archives
+  mv ${appname}.zip /tmp/archives/
 done
