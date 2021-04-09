@@ -173,7 +173,8 @@ for dockerfile in $(list_dockerfiles); do
   cp -r ../../vendor .
   cp ../../go.mod .
   cp ../../go.sum .
-  zip -r ${appname}.zip *.go vendor/ go.mod go.sum
+  cd ../
+  zip -r ${appname}.zip ${appname}/*
   mkdir -p /tmp/archives
   mv ${appname}.zip /tmp/archives/
 done
