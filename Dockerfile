@@ -1,11 +1,11 @@
-FROM golang:1.13.4
+FROM golang:1.16.3
 
 RUN apt-get update \
     && apt-get install -y \
 	  openssh-client \
 	  ca-certificates \
 	  tar \
-	  gzip \
+	  gzip zip \
 	  python-pip \
 	  lsb-release \
     && go get github.com/jstemmer/go-junit-report \
