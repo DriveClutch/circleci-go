@@ -25,6 +25,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="update-ecr-ver" />
+                    <option name="lastUsedInstant" value="1657759684" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="master" />
                     <option name="lastUsedInstant" value="1657759569" />
                   </RecentBranch>

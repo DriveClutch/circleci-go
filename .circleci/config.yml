@@ -1,5 +1,5 @@
 orbs:
-  aws-ecr: circleci/aws-ecr@7.3.0
+  aws-ecr: circleci/aws-ecr@8.1.2
 version: 2.1
 workflows:
   build_and_push_image:
