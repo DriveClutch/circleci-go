@@ -1,13 +1,19 @@
 FROM golang:1.16.3
 
-RUN apt-get update \
+RUN apt-get update
+
+
+RUN apt-get upgrade -y \
     && apt-get install -y \
-	  openssh-client \
+      openssh-client \
 	  ca-certificates \
 	  tar \
-	  gzip zip \
+	  gzip \
+	  zip \
 	  python-pip \
-	  lsb-release  shellcheck bats \
+	  lsb-release \
+	  shellcheck \
+	  bats \
     && go get github.com/jstemmer/go-junit-report \
     && go get honnef.co/go/tools/cmd/staticcheck \
     && export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.docker.com/linux/static/stable/x86_64/ | grep -o -e 'docker-[.0-9]*-ce\.tgz' | sort -r | head -n 1) \
