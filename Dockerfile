@@ -27,7 +27,6 @@ RUN export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.dock
     && tar -xz -C /tmp -f /tmp/docker.tgz \
     && mv /tmp/docker/* /usr/bin \
     && rm -rf /tmp/docker /tmp/docker.tgz linux-amd64 \
-    && pip3 install --upgrade pip \
-    && pip3 install awscli
+    && pip install awscli
 
 COPY tools/* /tools/
