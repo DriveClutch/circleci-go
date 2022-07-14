@@ -10,6 +10,7 @@ if [[ -x "tools/build.sh" ]]; then
 fi
 
 go mod init
+go mod tidy
 
 for dockerfile in $(find . -name Dockerfile -not -path "./vendor/*" )
 do
