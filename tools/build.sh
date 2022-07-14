@@ -9,6 +9,8 @@ if [[ -x "tools/build.sh" ]]; then
 	exit $?
 fi
 
+go mod init
+
 for dockerfile in $(find . -name Dockerfile -not -path "./vendor/*" )
 do
 	pkgdir=$(dirname $dockerfile)
