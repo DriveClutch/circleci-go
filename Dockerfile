@@ -2,19 +2,20 @@ FROM golang:1.16.3
 
 RUN apt-get update
 
+RUN apt-get upgrade -y
 
-RUN apt-get upgrade -y \
-    && apt-get install -y \
-      openssh-client \
-	  ca-certificates \
-	  tar \
-	  gzip \
-	  zip \
-	  python-pip \
-	  lsb-release \
-	  shellcheck \
-	  bats \
-    && go get github.com/jstemmer/go-junit-report \
+RUN apt-get install -y \
+    openssh-client \
+	ca-certificates \
+	tar \
+	gzip \
+	zip \
+	python-pip \
+	lsb-release \
+	shellcheck \
+	bats
+
+RUN go get github.com/jstemmer/go-junit-report \
     && go get honnef.co/go/tools/cmd/staticcheck \
     && export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.docker.com/linux/static/stable/x86_64/ | grep -o -e 'docker-[.0-9]*-ce\.tgz' | sort -r | head -n 1) \
     && DOCKER_URL="https://download.docker.com/linux/static/stable/x86_64/${DOCKER_VERSION}" \
@@ -24,6 +25,7 @@ RUN apt-get upgrade -y \
     && tar -xz -C /tmp -f /tmp/docker.tgz \
     && mv /tmp/docker/* /usr/bin \
     && rm -rf /tmp/docker /tmp/docker.tgz linux-amd64 \
-    && pip install --upgrade awscli
+    && pip3 install --upgrade pip \
+    && pip3 install awscli
 
 COPY tools/* /tools/
