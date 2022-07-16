@@ -15,7 +15,7 @@ RUN apt-get install -y \
 	tar \
 	gzip \
 	zip \
-	python-pip \
+	python3-pip \
 	lsb-release \
 	shellcheck \
 	bats
