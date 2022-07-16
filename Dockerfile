@@ -1,8 +1,13 @@
 FROM golang:1.18
 #FROM golang:1.16.3
 
+RUN apt-get update
 
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN apt-get upgrade -y
+
+
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get -yq install apt-utils
 
 RUN apt-get install -y \
     openssh-client \
@@ -14,7 +19,6 @@ RUN apt-get install -y \
 	lsb-release \
 	shellcheck \
 	bats
-#RUN apt install golang-glide
 
 RUN go get -d github.com/jstemmer/go-junit-report
 
@@ -32,14 +36,14 @@ RUN export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.dock
     && pip install --upgrade awscli
 
 
-#WORKDIR /usr/src/app
+WORKDIR /usr/src/app
 
 COPY tools/* /tools/
 # pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
-#COPY go.mod go.sum ./
-#RUN go mod download && go mod verify
-#
-#COPY . .
-#RUN go build -v -o /usr/local/bin/app ./...
-#
-#CMD ["app"]
+COPY go.mod go.sum ./
+RUN go mod download && go mod verify
+
+COPY . .
+RUN go build -v -o /usr/local/bin/app ./...
+
+CMD ["app"]
