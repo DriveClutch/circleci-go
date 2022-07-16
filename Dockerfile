@@ -1,24 +1,29 @@
 FROM golang:1.18
 #FROM golang:1.16.3
 
-RUN apt-get update
-
-RUN apt-get upgrade -y
-
+RUN sudo apt-get -yq update && sudo apt-get -yq upgrade
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get -yq install apt-utils
+    sudo apt-get -yq install apt-utils
 
-RUN apt-get install -y \
-    openssh-client \
-	ca-certificates \
-	tar \
-	gzip \
-	zip \
-	python3-pip \
-	lsb-release \
-	shellcheck \
-	bats
+
+RUN sudo apt-get -yq install \
+        ca-certificates \
+        curl \
+        git \
+        openssh-client \
+    	tar \
+    	gzip \
+    	zip \
+    	python3-pip \
+    	lsb-release \
+    	shellcheck \
+    	bats\
+    && sudo apt-get -yq clean \
+    && sudo rm -rf /var/lib/apt/lists/*
+
+
+RUN export PATH=$PATH:/usr/local/go/bin
 
 RUN go install github.com/jstemmer/go-junit-report@latest
 
