@@ -1,4 +1,4 @@
-FROM golang:1.17.3-alpine3.15
+FROM golang:1.17.3-stretch
 
 RUN apt-get -yq update && apt-get -yq upgrade
 
