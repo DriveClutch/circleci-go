@@ -1,13 +1,13 @@
 FROM golang:1.18
 #FROM golang:1.16.3
 
-RUN sudo apt-get -yq update && sudo apt-get -yq upgrade
+RUN apt-get -yq update && sudo apt-get -yq upgrade
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    sudo apt-get -yq install apt-utils
+    apt-get -yq install apt-utils
 
 
-RUN sudo apt-get -yq install \
+RUN apt-get -yq install \
         ca-certificates \
         curl \
         git \
@@ -19,8 +19,8 @@ RUN sudo apt-get -yq install \
     	lsb-release \
     	shellcheck \
     	bats\
-    && sudo apt-get -yq clean \
-    && sudo rm -rf /var/lib/apt/lists/*
+    && apt-get -yq clean \
+    && rm -rf /var/lib/apt/lists/*
 
 
 RUN export PATH=$PATH:/usr/local/go/bin
