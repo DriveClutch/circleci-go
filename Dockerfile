@@ -20,9 +20,9 @@ RUN apt-get install -y \
 	shellcheck \
 	bats
 
-RUN go install -d github.com/jstemmer/go-junit-report
+RUN go install -d github.com/jstemmer/go-junit-report@latest
 
-RUN go install -d honnef.co/go/tools/cmd/staticcheck
+RUN go install -d honnef.co/go/tools/cmd/staticcheck@latest
 
 
 RUN export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.docker.com/linux/static/stable/x86_64/ | grep -o -e 'docker-[.0-9]*-ce\.tgz' | sort -r | head -n 1) \
