@@ -1,7 +1,7 @@
 FROM golang:1.18
 #FROM golang:1.16.3
 
-RUN apt-get -yq update && sudo apt-get -yq upgrade
+RUN apt-get -yq update && apt-get -yq upgrade
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get -yq install apt-utils
