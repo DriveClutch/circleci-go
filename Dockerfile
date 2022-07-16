@@ -17,7 +17,8 @@ RUN apt-get -yq install \
     	python3-pip \
     	lsb-release \
     	shellcheck \
-    	bats\
+    	bats \
+    	golang-glide \
     && apt-get -yq clean \
     && rm -rf /var/lib/apt/lists/*
 
