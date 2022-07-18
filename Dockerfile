@@ -1,34 +1,23 @@
-FROM golang:1.17.3-stretch
+FROM golang:1.16.3
 
-RUN apt-get -yq update && apt-get -yq upgrade
+RUN apt-get update
 
-RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get -yq install apt-utils
+RUN apt-get upgrade -y
 
+RUN apt-get install -y \
+    openssh-client \
+	ca-certificates \
+	tar \
+	gzip \
+	zip \
+	python-pip \
+	lsb-release \
+	shellcheck \
+	bats
 
-RUN apt-get -yq install \
-        ca-certificates \
-        curl \
-        git \
-        openssh-client \
-    	tar \
-    	gzip \
-    	zip \
-    	python3-pip \
-    	lsb-release \
-    	shellcheck \
-    	bats \
-    	golang-glide \
-    && apt-get -yq clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN go get -d github.com/jstemmer/go-junit-report
 
-
-RUN export PATH=$PATH:/usr/local/go/bin
-
-RUN go install github.com/jstemmer/go-junit-report@latest
-
-RUN go install honnef.co/go/tools/cmd/staticcheck@latest
-
+RUN go get -d honnef.co/go/tools/cmd/staticcheck
 
 RUN export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.docker.com/linux/static/stable/x86_64/ | grep -o -e 'docker-[.0-9]*-ce\.tgz' | sort -r | head -n 1) \
     && DOCKER_URL="https://download.docker.com/linux/static/stable/x86_64/${DOCKER_VERSION}" \
@@ -38,7 +27,6 @@ RUN export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.dock
     && tar -xz -C /tmp -f /tmp/docker.tgz \
     && mv /tmp/docker/* /usr/bin \
     && rm -rf /tmp/docker /tmp/docker.tgz linux-amd64 \
-    && pip3 install --upgrade awscli
-
+    && pip install --upgrade awscli
 
 COPY tools/* /tools/
