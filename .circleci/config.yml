@@ -1,6 +1,10 @@
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
 version: 2.1
+parameters:
+  image:
+    type: string
+    default: ubuntu-2204:2022.04.1
 workflows:
   build_and_push_image:
     jobs:
