@@ -1,5 +1,6 @@
-FROM golang:1.17.3-stretch
+FROM golang:latest
 
+## Warm apt cache
 RUN apt-get update
 RUN apt-get upgrade
 #RUN apt-get -yq update && apt-get -yq upgrade
