@@ -1,6 +1,8 @@
 FROM golang:1.17.3-stretch
 
-RUN apt-get -yq update && apt-get -yq upgrade
+RUN apt-get update
+RUN apt-get upgrade
+#RUN apt-get -yq update && apt-get -yq upgrade
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get -yq install apt-utils
