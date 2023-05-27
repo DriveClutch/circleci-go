@@ -9,6 +9,10 @@ if [[ -x "tools/build.sh" ]]; then
 	exit $?
 fi
 
+go mod init
+go mod download github.com/DriveClutch/clutch-common-go
+go mod tidy
+
 for dockerfile in $(find . -name Dockerfile -not -path "./vendor/*" )
 do
 	pkgdir=$(dirname $dockerfile)
